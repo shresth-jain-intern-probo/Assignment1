@@ -1,5 +1,9 @@
 # Assignment1
-Create a CRUD API using NodeJs and MySQL
+Write Crud APIs for User resource
+Create User: With this api a new user can be created
+Get User list: This api should fetch paginated data for users
+Update User: To update user’s name/last name/ email
+delete User: To delete user from system
 
 ## Add a new User : POST
 ![image](https://user-images.githubusercontent.com/121893158/210724476-6ab61f61-528b-481c-be8f-f136b554d7f8.png)
