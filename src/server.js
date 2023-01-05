@@ -3,6 +3,9 @@ var app = express();
 var bodyParser = require("body-parser");
 var mysql = require("mysql");
 let multer = require("multer");
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -17,14 +20,14 @@ app.use(express.static("./public"));
 app.get("/", function (req, res) {
   return res.send({ error: true, message: "hello" });
 });
-
 // connection configurations
 var dbConn = mysql.createConnection({
   host: "localhost",
   user: "shresth",
-  password: "password",
+  password: process.env.SQLPASSWORD,
   database: "users",
 });
+
 // connect to database
 dbConn.connect(function (err) {
   if (err) throw err;
@@ -79,7 +82,6 @@ app.get("/user/:id", function (req, res) {
 });
 // Add a new user
 app.post("/user", function (req, res) {
-  //   console.log("Hit");
   let user = req.body;
   console.log(req.body);
   if (!user) {
@@ -102,15 +104,16 @@ app.post("/user", function (req, res) {
 });
 // //  Update user with id
 app.put("/user", function (req, res) {
-  let user_id = req.body.user_id;
-  let user = req.body.user;
+  let user_id = req.body.id;
+  let user = req.body;
+  console.log(user_id,user);
   if (!user_id || !user) {
     return res
       .status(400)
       .send({ error: user, message: "Please provide user and user_id" });
   }
   dbConn.query(
-    "UPDATE user_data SET user = ? WHERE id = ?",
+    "UPDATE user_data SET ? WHERE id = ?",
     [user, user_id],
     function (error, results, fields) {
       if (error) throw error;
@@ -124,7 +127,8 @@ app.put("/user", function (req, res) {
 });
 //  Delete user
 app.delete("/user", function (req, res) {
-  let user_id = req.body.user_id;
+  let user_id = req.body.id;
+  console.log(user_id);
   if (!user_id) {
     return res
       .status(400)
@@ -138,7 +142,7 @@ app.delete("/user", function (req, res) {
       return res.send({
         error: false,
         data: results,
-        message: "User has been updated successfully.",
+        message: "User has been deleted successfully.",
       });
     }
   );
@@ -149,3 +153,5 @@ app.listen(3000, function () {
   console.log("Node app is running on port 3000");
 });
 module.exports = app;
+
+process.env
