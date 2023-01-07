@@ -9,6 +9,8 @@ Update User: To update user’s name/last name/ email
 <br>
 delete User: To delete user from system
 <br>
+## Schema Used
+![image](https://user-images.githubusercontent.com/121893158/211162022-1fe12f8f-04bd-49c4-b9c2-6bded38d13ca.png)
 
 ## Add a new User : POST
 ![image](https://user-images.githubusercontent.com/121893158/210724476-6ab61f61-528b-481c-be8f-f136b554d7f8.png)
